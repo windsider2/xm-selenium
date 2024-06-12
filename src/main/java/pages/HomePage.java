@@ -1,8 +1,8 @@
 package pages;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-
-import static java.lang.String.format;
+import org.openqa.selenium.WebElement;
 
 public class HomePage extends BasePage {
     public HomePage(WebDriver driver) {
@@ -10,17 +10,27 @@ public class HomePage extends BasePage {
     }
 
     private static final String HEADER_XPATH = "//div[@class ='xm_app_stickyHeader__container text-left']//p";
-    private static final String TAB_XPATH_PATTERN = "//*[@id='main-nav']//li/a[contains(normalize-space(), '%s')]";
 
     public String getHeader() {
         return getElementByXpath(HEADER_XPATH).getText();
     }
 
-    public void navigateHomePage() {
+    public void navigateToHomePage() {
         driver.get("https://www.xm.com/");
     }
 
+    public void clickMenu() {
+        WebElement menu = getElementByXpath("//button[@class='toggleLeftNav']");
+        if (menu.isDisplayed()) {
+            menu.click();
+        }
+    }
+
     public void clickTab(String tab) {
-        getElementByXpath(format(TAB_XPATH_PATTERN, tab)).click();
+        JavascriptExecutor js = ((JavascriptExecutor) driver);
+        WebElement tab2 = getElementByXpath("//a[@aria-controls='researchMenu']");
+        js.executeScript("arguments[0].scrollIntoView({behavior: 'auto', block: 'center', inline: 'center'});", tab2);
+        js.executeScript("arguments[0].click();", tab2);
+        //tab2.click();
     }
 }

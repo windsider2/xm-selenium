@@ -9,7 +9,7 @@ public class BaseTest {
     WebDriver driver;
 
     @BeforeClass
-    public void startBrowser() {
+    public void setUp() {
         driver = new DriverManager().getWebdriver();
     }
 
