@@ -1,6 +1,6 @@
 package pages;
 
-import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -10,6 +10,9 @@ public class HomePage extends BasePage {
     }
 
     private static final String HEADER_XPATH = "//div[@class ='xm_app_stickyHeader__container text-left']//p";
+    private static final String MENU_BUTTON_XPATH = "//button[@class='toggleLeftNav']";
+    private static final String RESEARCH_MENU_LINK_XPATH = "//a[@aria-controls='researchMenu']";
+
 
     public String getHeader() {
         return getElementByXpath(HEADER_XPATH).getText();
@@ -20,17 +23,19 @@ public class HomePage extends BasePage {
     }
 
     public void clickMenu() {
-        WebElement menu = getElementByXpath("//button[@class='toggleLeftNav']");
+        final WebElement menu = getElementByXpath(MENU_BUTTON_XPATH);
         if (menu.isDisplayed()) {
             menu.click();
         }
     }
 
-    public void clickTab(String tab) {
-        JavascriptExecutor js = ((JavascriptExecutor) driver);
-        WebElement tab2 = getElementByXpath("//a[@aria-controls='researchMenu']");
-        js.executeScript("arguments[0].scrollIntoView({behavior: 'auto', block: 'center', inline: 'center'});", tab2);
-        js.executeScript("arguments[0].click();", tab2);
-        //tab2.click();
+    public void clickTabResearchMenu() {
+        final WebElement tabLink = getElementByXpath(RESEARCH_MENU_LINK_XPATH);
+        jsUtil.scrollIntoView(tabLink);
+        try {
+            tabLink.click();
+        } catch (ElementNotInteractableException e) {
+            jsUtil.jsClick(tabLink);
+        }
     }
 }

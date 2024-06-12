@@ -1,7 +1,6 @@
 package pages;
 
 import org.openqa.selenium.ElementNotInteractableException;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -15,12 +14,11 @@ public class ResearchAndEducationPage extends BasePage {
 
     public void selectVideoByTitle(String link) {
         WebElement videoLink = getElementByXpath(format(VIDEO_LINK_XPATH_PATTERN, link));
-        JavascriptExecutor js = ((JavascriptExecutor) driver);
         jsUtil.scrollIntoView(videoLink);
         try {
             videoLink.click();
         } catch (ElementNotInteractableException e) {
-            js.executeScript("arguments[0].click();", link);
+            jsUtil.jsClick(videoLink);
         }
     }
 }

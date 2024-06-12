@@ -33,7 +33,7 @@ public class EducationalVideosTest extends BaseTest {
         assertThat(homePage.getHeader())
                         .isEqualTo("Trade On the Go with the All-In-One XM App.");
         homePage.clickMenu();
-        homePage.clickTab("RESEARCH & EDUCATION");
+        homePage.clickTabResearchMenu();
         new ResearchAndEducationPage(driver).selectVideoByTitle("educational-videos");
         educationalVideosPage.startVideoAndVerifyProgressTime("Lesson 1.1", "00:05");
     }
