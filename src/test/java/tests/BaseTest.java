@@ -5,7 +5,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import webdriver.DriverManager;
 
-public class BaseTest {
+public abstract class BaseTest {
     WebDriver driver;
 
     @BeforeClass

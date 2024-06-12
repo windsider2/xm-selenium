@@ -8,6 +8,7 @@ import pages.EducationalVideosPage;
 import pages.HomePage;
 import pages.PrivacyModalDialog;
 import pages.ResearchAndEducationPage;
+import util.ScreenUtil;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
@@ -24,7 +25,7 @@ public class EducationalVideosTest extends BaseTest {
         homePage= new HomePage(driver);
         homePage.navigateToHomePage();
         new PrivacyModalDialog(driver).clickButton("ACCEPT ALL");
-        homePage.setScreenResolution(resolution);
+        new ScreenUtil(driver).setScreenResolution(resolution);
     }
 
     @Test
