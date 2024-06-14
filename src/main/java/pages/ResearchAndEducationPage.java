@@ -12,7 +12,7 @@ public class ResearchAndEducationPage extends BasePage {
         super(driver);
     }
 
-    public void selectVideoByTitle(String link) {
+    public void selectVideoByLink(String link) {
         WebElement videoLink = getElementByXpath(format(VIDEO_LINK_XPATH_PATTERN, link));
         jsUtil.scrollIntoView(videoLink);
         try {

@@ -2,21 +2,23 @@ package tests;
 
 import dataproviders.ScreenResolutionProvider;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
-import pages.EducationalVideosPage;
+import pages.EconomicCalendarPage;
 import pages.HomePage;
 import pages.PrivacyModalDialog;
 import pages.ResearchAndEducationPage;
 import util.ScreenUtil;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static util.DateUtil.*;
 
-public class EducationalVideosTest extends BaseTest {
+public class EconomicCalendarTest extends BaseTest {
     private String resolution;
 
     @Factory(dataProviderClass = ScreenResolutionProvider.class, dataProvider = "resolution")
-    public EducationalVideosTest(String resolution) {
+    public EconomicCalendarTest(String resolution) {
         this.resolution = resolution;
     }
     private HomePage homePage;
@@ -28,14 +30,24 @@ public class EducationalVideosTest extends BaseTest {
         new ScreenUtil(driver).setScreenResolution(resolution);
     }
 
-    @Test
-    public void playTimeTest() {
-        assertThat(homePage.getHeader())
-                        .isEqualTo("Trade On the Go with the All-In-One XM App.");
+    @Test(dataProvider = "dateProvider")
+    public void calendarTest(String timeMark, String expectedDate) {
         homePage.clickMenu();
         homePage.clickTabResearchMenu();
-        new ResearchAndEducationPage(driver).selectVideoByLink("educational-videos");
-        new EducationalVideosPage(driver).playVideoAndVerifyProgressTime("Lesson 1.1", "00:05");
+        new ResearchAndEducationPage(driver).selectVideoByLink("economicCalendar");
+        String actualDate = new EconomicCalendarPage(driver).dragSliderAndGetDate(timeMark);
+        assertThat(actualDate)
+                .as("Wrong date after time slider adjustment")
+                .isEqualTo(expectedDate);
+    }
+
+    @DataProvider
+    private static Object[][] dateProvider() {
+        return new Object[][]{
+                {"Today", getCurrentDate()},
+                {"Tomorrow", getTomorrowDate()},
+                {"Next Week", getNextWeekDate()}
+        };
     }
 }
 

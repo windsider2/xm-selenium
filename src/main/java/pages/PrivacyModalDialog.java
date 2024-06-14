@@ -13,9 +13,11 @@ public class PrivacyModalDialog extends BasePage {
     private static final String ACCEPT_ALL_BUTTON_XPATH = "//div[@class='modal-content']//div[@class='modal-footer']//button[contains(text(), '%s')]";
 
     public void clickButton(String button) {
-        WebElement dialogButton = getElementByXpath(format(ACCEPT_ALL_BUTTON_XPATH, button));
-        if (dialogButton.isDisplayed()) {
-            dialogButton.click();
+        if (isElementPresent(format(ACCEPT_ALL_BUTTON_XPATH, button))) {
+            final WebElement dialogButton = getElementByXpath(format(ACCEPT_ALL_BUTTON_XPATH, button));
+            if (dialogButton.isDisplayed()) {
+                dialogButton.click();
+            }
         }
     }
 }

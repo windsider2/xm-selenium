@@ -23,9 +23,11 @@ public class HomePage extends BasePage {
     }
 
     public void clickMenu() {
-        final WebElement menu = getElementByXpath(MENU_BUTTON_XPATH);
-        if (menu.isDisplayed()) {
-            menu.click();
+        if (isElementPresent(MENU_BUTTON_XPATH)) {
+            WebElement menu = getElementByXpath(MENU_BUTTON_XPATH);
+            if (menu.isDisplayed()) {
+                menu.click();
+            }
         }
     }
 
