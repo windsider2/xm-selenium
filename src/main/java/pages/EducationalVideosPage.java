@@ -39,7 +39,7 @@ public class EducationalVideosPage extends BasePage {
             jsUtil.jsClick(playButton);
         }
         final WebElement playerProgress = getElementByXpath(PLAYER_PROGRESS_TIME_XPATH);
-        new WebDriverWait(driver, ofSeconds(7))
+        new WebDriverWait(driver, ofSeconds(DRIVER_DEFAULT_WAIT_TIMEOUT))
                 .until(textToBePresentInElement(playerProgress, progressTime));
         driver.switchTo().defaultContent();
     }

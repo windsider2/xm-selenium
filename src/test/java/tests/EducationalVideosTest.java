@@ -1,7 +1,7 @@
 package tests;
 
+import dataproviders.ScreenResolutionProvider;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
 import pages.EducationalVideosPage;
@@ -15,7 +15,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 public class EducationalVideosTest extends BaseTest {
     private String resolution;
 
-    @Factory(dataProvider = "dataMethod")
+    @Factory(dataProviderClass = ScreenResolutionProvider.class, dataProvider = "resolution")
     public EducationalVideosTest(String resolution) {
         this.resolution = resolution;
     }
@@ -36,13 +36,6 @@ public class EducationalVideosTest extends BaseTest {
         homePage.clickTabResearchMenu();
         new ResearchAndEducationPage(driver).selectVideoByLink("educational-videos");
         new EducationalVideosPage(driver).playVideoAndVerifyProgressTime("Lesson 1.1", "00:05");
-    }
-
-    @DataProvider
-    private static Object[][] dataMethod() {
-        return new Object[][]{{"max"},
-                {"1024 x 768"}, {"800 x 600"}
-        };
     }
 }
 

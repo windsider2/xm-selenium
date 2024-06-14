@@ -12,7 +12,7 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElemen
 public abstract class BasePage {
     public WebDriver driver;
     protected JsUtil jsUtil;
-    private static final int DRIVER_DEFAULT_WAIT_TIMEOUT = 20;
+    protected static final int DRIVER_DEFAULT_WAIT_TIMEOUT = 20;
 
     protected BasePage(WebDriver driver){
         this.driver = driver;
