@@ -13,7 +13,7 @@ public abstract class BaseTest {
 
     @BeforeClass
     public void setUp(ITestContext context) {
-        driver = new DriverManager().getWebdriver();
+        driver = DriverManager.getWebdriver();
         context.setAttribute("driver", driver);
     }
 

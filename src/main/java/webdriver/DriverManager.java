@@ -5,21 +5,21 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 public class DriverManager {
-    private WebDriver driver;
+    private static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
 
-    private WebDriver buildDriver() {
+    private static void buildDriver() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--start-maximized");
-        driver = WebDriverManager.chromedriver()
+        WebDriver webDriver = WebDriverManager.chromedriver()
                 .capabilities(options)
                 .create();
-        return driver;
+        driver.set(webDriver);
     }
 
-    public WebDriver getWebdriver() {
-        if (driver == null) {
-            driver = buildDriver();
+    public static WebDriver getWebdriver() {
+        if (driver.get() == null) {
+            buildDriver();
         }
-        return driver;
+        return driver.get();
     }
 }
